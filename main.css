@@ -1,0 +1,36 @@
+*{
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root{
+	--element: 0;
+}
+
+body{
+	background-color: black
+}
+
+#container{
+	--width: 900px;
+	--height: 900px;
+	width: var(--width); height: var(--height);
+	border: 1px solid red;
+	margin: auto;
+	margin-top: 150px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#container > .elm{
+	width: calc(var(--width) / var(--element));
+	height: calc(var(--height) / var(--element));
+	flex-basis: calc(100 / var(--element) * 1%);
+	border: 1px solid white;
+	/* text */
+	font-size: calc(var(--width) / var(--element) * 0.80);
+	color: white;
+	text-align: center;
+	line-height: calc(var(--height) / var(--element));
+}
