@@ -1,9 +1,9 @@
 class Piece{
-	entropy = [0,1,2,3,4,5,6,7,8,9];
+	entropy;
 	open = false;
-	constructor(x, y, elm){
+	constructor(x, y, nElm){
+		this.entropy = Array.from(Array(nElm).keys());
 		this.x = x;
 		this.y = y;
-		this.elm = elm;
 	}
 }

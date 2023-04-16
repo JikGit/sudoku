@@ -1,12 +1,14 @@
 const root = document.querySelector(":root");
 const container = document.querySelector("#container");
 
-let element = 9;
-let quadratoSize = 3;
+let element = 16;
+let quadratoSize = 4;
 //change element in css
 root.style.setProperty("--element" , element);
 
 let open = [];
+
+let sudokuProvati = 0;
 
 //creo tutti gli elementi
 let listPiece = createAllElement(element);
@@ -36,16 +38,20 @@ function loopSudoku(listPiece, element, quadratoSize){
 		number = min.entropy[Math.floor(Math.random() * min.entropy.length)];
 		//numero = undefined quando il sudoku e' impossibile come e' in qeusto momento
 		if (number == undefined){
+			sudokuProvati+=1;
 			removeElementHtml();
 			open = [];
 			listPiece = createAllElement(element)
 			loopSudoku(listPiece, element, quadratoSize)
+
 			return;
 		}
 
 		//setto il entropy
 		changeEntropy(min, number, listPiece, quadratoSize, element)
 	}
+	//stampo il numero di prove prima di trovare questo sudoku
+	console.log(sudokuProvati);
 }
 
 //rimuove tutti gli elementi di classe .elm
@@ -109,8 +115,8 @@ function findVicini(listPiece, piece, element, quadratoSize){
 	}
 
 	//infine il quadrato
-	for (let y = Math.floor(piece.y / quadratoSize) * quadratoSize; y < Math.floor(piece.y / quadratoSize) * quadratoSize + 3; y++){
-		for (let x = Math.floor(piece.x / quadratoSize) * quadratoSize; x < Math.floor(piece.x / quadratoSize) * quadratoSize + 3; x++){
+	for (let y = Math.floor(piece.y / quadratoSize) * quadratoSize; y < Math.floor(piece.y / quadratoSize) * quadratoSize + quadratoSize; y++){
+		for (let x = Math.floor(piece.x / quadratoSize) * quadratoSize; x < Math.floor(piece.x / quadratoSize) * quadratoSize + quadratoSize; x++){
 			if (piece.x == x && piece.y == y){
 				continue;
 			}
@@ -163,7 +169,7 @@ function createAllElement(element){
 		let list = [];
 		for (let x = 0; x < element; x++){
 			//creo il piece
-			let piece = new Piece(x, y);
+			let piece = new Piece(x, y, element);
 			//creo l'elemento html
 		    let newDiv = document.createElement("div");
 			piece.elm = newDiv;
